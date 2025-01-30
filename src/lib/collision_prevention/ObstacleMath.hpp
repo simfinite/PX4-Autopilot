@@ -45,6 +45,7 @@ enum SensorOrientation {
 	ROTATION_YAW_225 = 5,	  // MAV_SENSOR_ROTATION_YAW_225
 	ROTATION_YAW_270 = 6,	  // MAV_SENSOR_ROTATION_YAW_270
 	ROTATION_YAW_315 = 7,	  // MAV_SENSOR_ROTATION_YAW_315
+	ROTATION_CUSTOM  = 100,	  // MAV_SENSOR_ROTATION_CUSTOM
 
 	ROTATION_FORWARD_FACING  = 0, // MAV_SENSOR_ROTATION_NONE
 	ROTATION_RIGHT_FACING    = 2, // MAV_SENSOR_ROTATION_YAW_90
@@ -56,7 +57,7 @@ enum SensorOrientation {
  * Converts a sensor orientation to a yaw offset
  * @param orientation sensor orientation
  */
-float sensor_orientation_to_yaw_offset(const SensorOrientation orientation);
+float sensor_orientation_to_yaw_offset(const SensorOrientation orientation, const float q[4] = nullptr);
 
 /**
  * Scales a distance measurement taken in the vehicle body horizontal plane onto the world horizontal plane
@@ -88,5 +89,12 @@ int get_offset_bin_index(int bin, float bin_width, float angle_offset);
  * @param bin_count number of bins
  */
 int wrap_bin(int bin, int bin_count);
+
+/**
+ * Wraps an angle to the range [0, 360)
+ * @param angle angle in degrees
+ */
+float wrap_360(const float angle);
+
 
 } // ObstacleMath

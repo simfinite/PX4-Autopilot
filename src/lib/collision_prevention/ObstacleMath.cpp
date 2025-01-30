@@ -53,7 +53,7 @@ void project_distance_on_horizontal_plane(float &distance, const float yaw, cons
 
 int get_bin_at_angle(float bin_width, float angle, int start_bin)
 {
-	int bin_at_angle = start_bin + (int)round(matrix::wrap(angle, 0.f, 360.f) / bin_width);
+	int bin_at_angle = start_bin + (int)round(wrap_360(angle) / bin_width);
 	return wrap_bin(bin_at_angle, 360 / bin_width);
 }
 
@@ -63,7 +63,7 @@ int get_offset_bin_index(int bin, float bin_width, float angle_offset)
 	return wrap_bin(bin - offset, 360 / bin_width);
 }
 
-float sensor_orientation_to_yaw_offset(const SensorOrientation orientation)
+float sensor_orientation_to_yaw_offset(const SensorOrientation orientation, const float q[4])
 {
 	float offset = 0.0f;
 
@@ -99,6 +99,13 @@ float sensor_orientation_to_yaw_offset(const SensorOrientation orientation)
 	case SensorOrientation::ROTATION_YAW_315:
 		offset = -M_PI_F / 4.0f;
 		break;
+
+	case SensorOrientation::ROTATION_CUSTOM:
+		if (q != nullptr) {
+			offset = Eulerf(Quatf(q)).psi();
+		}
+
+		break;
 	}
 
 	return offset;
@@ -107,6 +114,11 @@ float sensor_orientation_to_yaw_offset(const SensorOrientation orientation)
 int wrap_bin(int bin, int bin_count)
 {
 	return (bin + bin_count) % bin_count;
+}
+
+float wrap_360(const float angle)
+{
+	return matrix::wrap(angle, 0.0f, 360.0f);
 }
 
 } // ObstacleMath
