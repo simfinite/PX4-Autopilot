@@ -690,9 +690,9 @@ void SF45LaserSerial::_handle_missed_bins(int current_bin, int previous_bin, uin
 	// Shift bin indices such that we can never have the wrap-around case.
 	float    fov_offset_angle    = 360.0f - SF45_FIELDOF_VIEW / 2;
 	int current_bin_offset  = ObstacleMath::get_offset_bin_index(current_bin,  _obstacle_distance.increment,
-				       fov_offset_angle);
+				  fov_offset_angle);
 	int previous_bin_offset = ObstacleMath::get_offset_bin_index(previous_bin, _obstacle_distance.increment,
-				       fov_offset_angle);
+				  fov_offset_angle);
 
 	int start = math::min(current_bin_offset, previous_bin_offset) + 1;
 	int end   = math::max(current_bin_offset, previous_bin_offset);
