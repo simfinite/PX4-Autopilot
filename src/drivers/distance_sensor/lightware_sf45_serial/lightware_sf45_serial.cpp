@@ -622,7 +622,7 @@ void SF45LaserSerial::sf45_process_replies()
 			_current_bin_dist = ((uint16_t)raw_distance < _current_bin_dist) ? (uint16_t)raw_distance : _current_bin_dist;
 
 			// Find bin index for the current sensor yaw angle (in sensor frame)
-			uint8_t current_bin = ObstacleMath::get_bin_at_angle(_obstacle_distance.increment, scaled_yaw_sensor_frame);
+			int current_bin = ObstacleMath::get_bin_at_angle(_obstacle_distance.increment, scaled_yaw_sensor_frame);
 
 			if (current_bin != _previous_bin) {
 				PX4_DEBUG("scaled_yaw: \t %f, \t current_bin: \t %d, \t distance: \t %8.4f\n", (double)scaled_yaw_frd, current_bin,
@@ -681,7 +681,7 @@ void SF45LaserSerial::_publish_obstacle_msg(hrt_abstime now)
 	_obstacle_distance_pub.publish(_obstacle_distance);
 }
 
-void SF45LaserSerial::_handle_missed_bins(uint8_t current_bin, uint8_t previous_bin, uint16_t measurement,
+void SF45LaserSerial::_handle_missed_bins(int current_bin, int previous_bin, uint16_t measurement,
 		hrt_abstime now)
 {
 	// if the sensor has its cycle delay configured for a low value like 5, it can happen that not every bin gets a measurement.
@@ -689,17 +689,17 @@ void SF45LaserSerial::_handle_missed_bins(uint8_t current_bin, uint8_t previous_
 
 	// Shift bin indices such that we can never have the wrap-around case.
 	float    fov_offset_angle    = 360.0f - SF45_FIELDOF_VIEW / 2;
-	uint16_t current_bin_offset  = ObstacleMath::get_offset_bin_index(current_bin,  _obstacle_distance.increment,
+	int current_bin_offset  = ObstacleMath::get_offset_bin_index(current_bin,  _obstacle_distance.increment,
 				       fov_offset_angle);
-	uint16_t previous_bin_offset = ObstacleMath::get_offset_bin_index(previous_bin, _obstacle_distance.increment,
+	int previous_bin_offset = ObstacleMath::get_offset_bin_index(previous_bin, _obstacle_distance.increment,
 				       fov_offset_angle);
 
-	uint16_t start = math::min(current_bin_offset, previous_bin_offset) + 1;
-	uint16_t end   = math::max(current_bin_offset, previous_bin_offset);
+	int start = math::min(current_bin_offset, previous_bin_offset) + 1;
+	int end   = math::max(current_bin_offset, previous_bin_offset);
 
 	// populate the missed bins with the measurement
 	for (uint16_t i = start; i < end; i++) {
-		uint16_t bin_index = ObstacleMath::get_offset_bin_index(i, _obstacle_distance.increment, -fov_offset_angle);
+		int bin_index = ObstacleMath::get_offset_bin_index(i, _obstacle_distance.increment, -fov_offset_angle);
 		_obstacle_distance.distances[bin_index] = measurement;
 		_data_timestamps[bin_index] = now;
 	}

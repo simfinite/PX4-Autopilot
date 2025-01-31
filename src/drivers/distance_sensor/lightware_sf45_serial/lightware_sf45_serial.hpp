@@ -108,7 +108,7 @@ private:
 	int				collect();
 	bool				_crc_valid{false};
 
-	void 				_handle_missed_bins(uint8_t current_bin, uint8_t previous_bin, uint16_t measurement, hrt_abstime now);
+	void 				_handle_missed_bins(int current_bin, int previous_bin, uint16_t measurement, hrt_abstime now);
 	void 				_publish_obstacle_msg(hrt_abstime now);
 	uORB::Subscription 		_vehicle_attitude_sub{ORB_ID(vehicle_attitude)};
 	uint64_t			_data_timestamps[BIN_COUNT];
@@ -137,7 +137,7 @@ private:
 	uint16_t			_calc_crc{0};
 	int32_t				_yaw_cfg{0};
 	int32_t				_orient_cfg{0};
-	uint8_t				_previous_bin{0};
+	int				_previous_bin{0};
 	uint16_t			_current_bin_dist{UINT16_MAX};
 	matrix::Quatf			_vehicle_attitude{};
 
