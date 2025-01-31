@@ -57,6 +57,12 @@ int get_bin_at_angle(float bin_width, float angle, int start_bin)
 	return wrap_bin(bin_at_angle, 360 / bin_width);
 }
 
+float get_lower_bound_angle(int bin, float bin_width, float angle_offset)
+{
+	bin = wrap_bin(bin, 360 / bin_width);
+	return wrap_360(bin * bin_width + angle_offset - bin_width / 2.f);
+}
+
 int get_offset_bin_index(int bin, float bin_width, float angle_offset)
 {
 	int offset = get_bin_at_angle(bin_width, angle_offset);

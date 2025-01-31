@@ -76,6 +76,14 @@ void project_distance_on_horizontal_plane(float &distance, const float yaw, cons
 int get_bin_at_angle(float bin_width, float angle, int start_bin = 0);
 
 /**
+ * Returns lower bound angle of a bin
+ * @param bin bin index
+ * @param bin_width width of a bin in degrees
+ * @param angle_offset clockwise angle offset in degrees
+ */
+float get_lower_bound_angle(int bin, float bin_width, float angle_offset);
+
+/**
  * Returns bin index for the current bin after an angle offset
  * @param bin current bin index
  * @param bin_width width of a bin in degrees
