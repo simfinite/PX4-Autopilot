@@ -64,7 +64,8 @@ parameters:
 
         RO_YAW_RATE_TH:
           description:
-            short: The minimum threshold for the yaw rate measurement not to be interpreted as zero
+            short: Yaw rate measurement threshold
+            long: The minimum threshold for the yaw rate measurement not to be interpreted as zero
           type: float
           unit: deg/s
           min: 0
@@ -75,7 +76,8 @@ parameters:
 
         RO_SPEED_TH:
           description:
-            short: The minimum threshold for the speed measurement not to be interpreted as zero
+            short: Speed measurement threshold
+            long: The minimum threshold for the speed measurement not to be interpreted as zero
           type: float
           unit: m/s
           min: 0
@@ -86,7 +88,8 @@ parameters:
 
         RO_YAW_STICK_DZ:
           description:
-            short: Percentage of stick input range that will be interpreted as zero around the stick centered value
+            short: Yaw stick deadzone
+            long: Percentage of stick input range that will be interpreted as zero around the stick centered value
           type: float
           min: 0
           max: 1
