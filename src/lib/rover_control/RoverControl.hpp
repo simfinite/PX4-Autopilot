@@ -101,7 +101,7 @@ float speedToThrottleSetpoint(SlewRate<float> &speed_with_rate_limit, PID &pid_s
  * @param global_ned_proj_ref Global to ned projection
  */
 void globalToLocalSetpointTriplet(Vector2f &curr_wp_ned, Vector2f &prev_wp_ned, Vector2f &next_wp_ned,
-				  position_setpoint_triplet_s position_setpoint_triplet, Vector2f curr_pos_ned, Vector2d home_pos,
+				  position_setpoint_triplet_s position_setpoint_triplet, Vector2f &curr_pos_ned, Vector2d &home_pos,
 				  MapProjection &global_ned_proj_ref);
 
 /**
@@ -111,6 +111,6 @@ void globalToLocalSetpointTriplet(Vector2f &curr_wp_ned, Vector2f &prev_wp_ned, 
  * @param next_wp_ned Next waypoint in NED frame
  * @return Waypoint transition angle [rad]
  */
-float calcWaypointTransitionAngle(Vector2f prev_wp_ned, Vector2f curr_wp_ned, Vector2f next_wp_ned);
+float calcWaypointTransitionAngle(Vector2f &prev_wp_ned, Vector2f &curr_wp_ned, Vector2f &next_wp_ned);
 
 }

@@ -160,7 +160,7 @@ float speedToThrottleSetpoint(SlewRate<float> &speed_with_rate_limit, PID &pid_s
 }
 
 void globalToLocalSetpointTriplet(Vector2f &curr_wp_ned, Vector2f &prev_wp_ned, Vector2f &next_wp_ned,
-				  position_setpoint_triplet_s position_setpoint_triplet, const Vector2f curr_pos_ned, const Vector2d home_pos,
+				  position_setpoint_triplet_s position_setpoint_triplet, Vector2f &curr_pos_ned, Vector2d &home_pos,
 				  MapProjection &global_ned_proj_ref)
 {
 	if (position_setpoint_triplet.current.valid && PX4_ISFINITE(position_setpoint_triplet.current.lat)
@@ -191,7 +191,7 @@ void globalToLocalSetpointTriplet(Vector2f &curr_wp_ned, Vector2f &prev_wp_ned, 
 	}
 }
 
-float calcWaypointTransitionAngle(Vector2f prev_wp_ned, Vector2f curr_wp_ned, Vector2f next_wp_ned)
+float calcWaypointTransitionAngle(Vector2f &prev_wp_ned, Vector2f &curr_wp_ned, Vector2f &next_wp_ned)
 {
 	// Sanitize inputs
 	if (!prev_wp_ned.isAllFinite() || !curr_wp_ned.isAllFinite() || !next_wp_ned.isAllFinite()) {
