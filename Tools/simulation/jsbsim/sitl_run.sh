@@ -82,8 +82,8 @@ else
 fi
 
 # For debugging fix: show JSBSim output to stdout/stderr
-# "${build_path}/build_jsbsim_bridge/jsbsim_bridge" ${model} -s "${src_path}/Tools/simulation/jsbsim/jsbsim_bridge/scene/${world}.xml" &
-"${build_path}/build_jsbsim_bridge/jsbsim_bridge" ${model} -s "${src_path}/Tools/simulation/jsbsim/jsbsim_bridge/scene/${world}.xml" 2> /dev/null &
+"${build_path}/build_jsbsim_bridge/jsbsim_bridge" ${model} -s "${src_path}/Tools/simulation/jsbsim/jsbsim_bridge/scene/${world}.xml" 2> jsbsim_bridge.log &
+# "${build_path}/build_jsbsim_bridge/jsbsim_bridge" ${model} -s "${src_path}/Tools/simulation/jsbsim/jsbsim_bridge/scene/${world}.xml" 2> /dev/null &
 JSBSIM_PID=$!
 
 pushd "$rootfs" >/dev/null
